@@ -17,6 +17,7 @@
 
 ### Detail page
  - bude obsahovat jméno, obrázek a popis města a aktuální teplotu ve městě získanou z [API](#weather-api)
+    - jako `CITY_NAME` použij property `slug`
  - obrázek města bude využívat [`Image` komponenty](https://nextjs.org/docs/basic-features/image-optimization) z Next.JS
  - použít getStaticProps nebo getServerSideProps
     - rozhodni se, která z funkcí bude lepší pro homepage
