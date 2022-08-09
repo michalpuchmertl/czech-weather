@@ -24,3 +24,8 @@ a {
     background: black;
   }
 }
+
+main {
+  margin: 0 auto;
+  width: 1100px;
+}

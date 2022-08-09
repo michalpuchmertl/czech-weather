@@ -1,34 +1,35 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Czech weather - NextJS course
 
-## Getting Started
+## Zadání
+- projekt bude mít 2 stránky
+    - home page
+    - detail page
 
-First, run the development server:
+### Homepage
+- homepage bude obsahovat list všech měst ze souboru `./data/cities.ts`
+- každé vypsáné město bude obsahovat název, obrázek města a odkaz na detail page
+- obrázek města bude využívat [`Image` komponenty](https://nextjs.org/docs/basic-features/image-optimization) z Next.JS
+- odkazy na jednotlivé detail pages jsou definovány v každém objektu města jako property `slug`
+- odkaz na detail page bude využívat [`Link` komponenty](https://nextjs.org/docs/api-reference/next/link) z Next.JS
+- použij getStaticProps nebo getServerSideProps
+    - rozhodni se, která z funkcí bude lepší pro homepage
+    - při rozhodování mysli na to, že datový soubor `cities.ts` může být měněn pouze před builděním projektu
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+### Detail page
+ - bude obsahovat jméno, obrázek a popis města a aktuální teplotu ve městě získanou z [API](#weather-api)
+ - obrázek města bude využívat [`Image` komponenty](https://nextjs.org/docs/basic-features/image-optimization) z Next.JS
+ - použít getStaticProps nebo getServerSideProps
+    - rozhodni se, která z funkcí bude lepší pro homepage
+    - při rozhodování mysli na to, že při navšívení stránky chceme vždy zobrazit aktuální teplotu v daném městě
+    
+## Cíle
+- naučit se s funkcemi getStaticProps/getServerSideProps a pochopit správný způsob užití těchto funkcí
+- naučit se s `<Image />` komponentou
+- naučit se s `<Link />` komponentou
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Weather API
+[documentation](https://openweathermap.org/current)
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+endpoint: https://api.openweathermap.org/data/2.5/weather?q={CITY_NAME},cz&appid={API_KEY}
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+api key: `**********************`
