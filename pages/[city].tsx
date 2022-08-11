@@ -1,37 +1,73 @@
 import cities from '../data/cities'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
-import Weather from '../components/Weather'
+// import Weather from '../components/Weather'
+import { useEffect } from 'react'
 
-const CityPage = ({ cities }) => {
+const CityPage = ({ weather, city, time }) => {
+
     const router = useRouter()
-    const city = cities.filter((city) => city.slug == router.query.city)
+    console.log(router)
+    // console.log(weather, city)
+
+
+    if(router.isFallback) {
+        return <div>Loading...</div>
+    }
+
+
+    const temp = weather.main.temp - 272.15
+
+
+    console.log(city)
 
     return (
         <div className="wrap">
-            <div className="">{city[0].name}</div>
-            <Image src={city[0].image} alt="test" width={400} height={400} ></Image>
-            <p>{city[0].description}</p>
+            <h1>{time}</h1>
+            <div className="">{city.name}</div>
+            <Image src={city.image} alt="test" width={400} height={400} ></Image>
+            <p>{city.description}</p>
+            <span>{temp.toFixed(1)} C</span>
             {/*  <Weather nameCity={city[0].slug}></Weather> */}
         </div>
     )
 }
 
 export async function getStaticPaths() {
+
+    // const paths = cities.map(city => ({
+    //     params: {
+    //         city: city.slug
+    //     }
+    // }))
+
     return {
-        paths: [{ params: { city: 'praha' } }],
-        fallback: false, // can also be true or 'blocking'
+        paths: [{ params: { city: 'praha' }}],
+        fallback: true, // can also be true or 'blocking'
     }
 }
 
-export async function getStaticProps(ctx) {
-    console.log(ctx.params)
-    /* const result = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${ctx.query.city},cz&appid={073c8b4b752412b2561be1860fc948a3}`)
-    const data = await result.json(); */
-    
+export async function getStaticProps(context: any) {
+
+    console.log(context.params.city)
+
+
+    const result = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${context.params.city},cz&appid=073c8b4b752412b2561be1860fc948a3`)
+    const weather = await result.json();
+
+    const now = new Date()
+    const time = `${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}`
+
+
+    const city = cities.filter((city) => city.slug == context.params.city)[0]
 
     return {
-        props: { data:null }
+        props: { 
+            weather,
+            city,
+            time
+        },
+        // revalidate: 10
     }
 }
 
